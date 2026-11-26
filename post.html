@@ -3,48 +3,106 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>お気に入り投稿</title>
+  <meta name="theme-color" content="#f5f4ed">
+  <title>スポットを投稿 | みんなのおすすめスポット</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="post-page">
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="みんなのおすすめスポット トップ">
+      <span class="brand-mark" aria-hidden="true">より</span>
+      <span>よりみち帖</span>
+    </a>
+    <nav aria-label="メインメニュー">
+      <a href="index.html">スポットを見つける</a>
+      <a class="nav-current" href="post.html" aria-current="page">スポットを投稿</a>
+    </nav>
+  </header>
 
-  <h1>お気に入りを投稿する</h1>
+  <main class="post-main">
+    <section class="post-hero" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span></span> YOUR LOCAL FINDS</p>
+        <h1 id="page-title">お気に入りの場所を、<br><em>みんなにも。</em></h1>
+        <p class="hero-description">何気ない路地のカフェも、いつもの公園も。あなたの「好き」をシェアして、新しいよりみちのきっかけを届けよう。</p>
+      </div>
+      <div class="hero-stamp" aria-hidden="true">
+        <span>GOOD<br>PLACE</span>
+        <span class="stamp-star">✳</span>
+        <small>NO. 001</small>
+      </div>
+      <div class="hero-decoration" aria-hidden="true">↗</div>
+    </section>
 
-  <form id="postForm">
+    <section class="post-section" aria-labelledby="form-heading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">SHARE YOUR SPOT</p>
+          <h2 id="form-heading">おすすめを投稿する</h2>
+        </div>
+        <p class="section-note"><span class="required-mark">*</span> は入力必須です</p>
+      </div>
 
-    <div>
-      <label for="photo">写真</label>
-      <input type="file" id="photo" accept="image/*" required>
-    </div>
+      <div class="post-layout">
+        <form id="postForm" class="post-form">
+          <div class="form-field">
+            <label for="photo">スポットの写真 <span class="required-mark">*</span></label>
+            <input class="file-input" type="file" id="photo" accept="image/*" required>
+            <label class="upload-box" for="photo">
+              <span class="upload-icon" aria-hidden="true">＋</span>
+              <span class="upload-title">写真を選んでください</span>
+              <span class="upload-hint">JPG、PNG などの画像ファイル</span>
+            </label>
+          </div>
 
-    <div>
-      <label for="title">タイトル</label>
-      <input type="text" id="title" placeholder="お気に入りの場所・もの" required>
-    </div>
+          <div class="form-field">
+            <label for="title">スポットの名前 <span class="required-mark">*</span></label>
+            <input type="text" id="title" placeholder="例：路地裏の小さな喫茶店" required>
+          </div>
 
-    <div>
-      <label for="description">コメント</label>
-      <textarea id="description" placeholder="お気に入りの理由などを書いてください"></textarea>
-    </div>
+          <div class="form-field">
+            <label for="description">お気に入りの理由</label>
+            <textarea id="description" rows="4" placeholder="雰囲気やおすすめの過ごし方などを教えてください"></textarea>
+          </div>
 
-    <div>
-      <label for="location">場所</label>
-      <input type="text" id="location" placeholder="例：熊本県">
-    </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="location">場所</label>
+              <input type="text" id="location" placeholder="例：東京都 世田谷区">
+            </div>
+            <div class="form-field">
+              <label for="author">投稿者のお名前 <span class="required-mark">*</span></label>
+              <input type="text" id="author" placeholder="お名前" required>
+            </div>
+          </div>
 
-    <div>
-      <label for="author">投稿者名</label>
-      <input type="text" id="author" placeholder="名前を入力してください" required>
-    </div>
+          <button class="submit-button" type="submit"><span>このスポットをシェア</span><span aria-hidden="true">↗</span></button>
+        </form>
 
-    <button type="submit">投稿する</button>
+        <aside class="post-aside">
+          <div class="aside-number">01 <span>—</span> 03</div>
+          <h3>あなたの「好き」が<br>誰かの新しい発見に。</h3>
+          <p>写真とひとことを添えるだけ。あなたらしい視点で、お気に入りの場所を紹介してください。</p>
+          <div class="aside-rule"></div>
+          <p class="aside-caption">A LITTLE DETOUR<br>CAN MAKE YOUR DAY.</p>
+          <span class="aside-flower" aria-hidden="true">✳</span>
+        </aside>
+      </div>
+    </section>
 
-  </form>
+    <section class="community-section" aria-labelledby="posts-heading">
+      <div class="section-heading community-heading">
+        <div>
+          <p class="eyebrow">FROM THE COMMUNITY</p>
+          <h2 id="posts-heading">みんなのおすすめ</h2>
+        </div>
+        <span class="community-label">SHARED WITH ♥</span>
+      </div>
+      <div id="postList" class="post-list" aria-live="polite"></div>
+    </section>
+  </main>
 
-  <h2>みんなの投稿</h2>
-
-<div id="postList"></div>
-
+  <footer class="site-footer"><span>よりみち帖</span><span>あなたの街の、好きな場所。</span><span>© 2026</span></footer>
   <script src="post.js"></script>
-
 </body>
 </html>

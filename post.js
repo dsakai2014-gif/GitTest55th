@@ -1,60 +1,62 @@
-// 投稿フォームと投稿一覧を取得
+// 投稿フォームと投稿一覧
 const postForm = document.getElementById("postForm");
 const postList = document.getElementById("postList");
 
-// 保存された投稿を表示する関数
 function displayPosts() {
   const posts = JSON.parse(localStorage.getItem("favoritePosts")) || [];
+  postList.replaceChildren();
 
-  // 投稿一覧を空にする
-  postList.innerHTML = "";
-
-  // 投稿がない場合
   if (posts.length === 0) {
-    postList.textContent = "まだ投稿はありません。";
+    const emptyMessage = document.createElement("p");
+    emptyMessage.className = "empty-posts";
+    emptyMessage.textContent = "まだ投稿はありません。あなたのおすすめを最初にシェアしてみませんか？";
+    postList.appendChild(emptyMessage);
     return;
   }
 
-  // 投稿を1つずつ表示
   posts.forEach(function (post) {
-    const postCard = document.createElement("div");
+    const postCard = document.createElement("article");
+    postCard.className = "post-card";
 
     const image = document.createElement("img");
+    image.className = "post-card-image";
     image.src = post.photo;
-    image.alt = post.title;
-    image.style.width = "250px";
+    image.alt = post.title || "投稿されたスポットの写真";
+
+    const content = document.createElement("div");
+    content.className = "post-card-content";
 
     const title = document.createElement("h3");
     title.textContent = post.title;
 
     const description = document.createElement("p");
-    description.textContent = post.description;
+    description.className = "post-card-description";
+    description.textContent = post.description || "お気に入りのスポットです。";
 
-    const location = document.createElement("p");
-    location.textContent = "場所：" + (post.location || "未入力");
+    const meta = document.createElement("div");
+    meta.className = "post-card-meta";
 
-    const author = document.createElement("p");
-    author.textContent = "投稿者：" + post.author;
+    const location = document.createElement("span");
+    location.textContent = "⌖ " + (post.location || "場所未入力");
 
-    const date = document.createElement("p");
-    date.textContent = "投稿日時：" + post.date;
+    const author = document.createElement("span");
+    author.textContent = "by " + post.author;
 
+    const date = document.createElement("span");
+    date.textContent = post.date;
+
+    meta.appendChild(location);
+    meta.appendChild(author);
+    meta.appendChild(date);
+    content.appendChild(title);
+    content.appendChild(description);
+    content.appendChild(meta);
     postCard.appendChild(image);
-    postCard.appendChild(title);
-    postCard.appendChild(description);
-    postCard.appendChild(location);
-    postCard.appendChild(author);
-    postCard.appendChild(date);
-
-    postCard.style.border = "1px solid #ccc";
-    postCard.style.padding = "15px";
-    postCard.style.margin = "15px 0";
-
+    postCard.appendChild(content);
     postList.appendChild(postCard);
   });
 }
 
-// 投稿処理
 postForm.addEventListener("submit", function (event) {
   event.preventDefault();
 
@@ -70,7 +72,6 @@ postForm.addEventListener("submit", function (event) {
   }
 
   const reader = new FileReader();
-
   reader.onload = function () {
     const newPost = {
       id: Date.now(),
@@ -82,22 +83,16 @@ postForm.addEventListener("submit", function (event) {
       date: new Date().toLocaleString("ja-JP")
     };
 
-    let posts = JSON.parse(localStorage.getItem("favoritePosts")) || [];
-
+    const posts = JSON.parse(localStorage.getItem("favoritePosts")) || [];
     posts.unshift(newPost);
-
     localStorage.setItem("favoritePosts", JSON.stringify(posts));
 
     alert("投稿しました！");
-
     postForm.reset();
-
-    // 投稿後に一覧を更新
     displayPosts();
   };
 
   reader.readAsDataURL(photoFile);
 });
 
-// ページを開いたときにも保存済み投稿を表示
 displayPosts();
