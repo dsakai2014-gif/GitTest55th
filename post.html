@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お気に入り投稿</title>
+</head>
+<body>
+
+  <h1>お気に入りを投稿する</h1>
+
+  <form id="postForm">
+
+    <div>
+      <label for="photo">写真</label>
+      <input type="file" id="photo" accept="image/*" required>
+    </div>
+
+    <div>
+      <label for="title">タイトル</label>
+      <input type="text" id="title" placeholder="お気に入りの場所・もの" required>
+    </div>
+
+    <div>
+      <label for="description">コメント</label>
+      <textarea id="description" placeholder="お気に入りの理由などを書いてください"></textarea>
+    </div>
+
+    <div>
+      <label for="location">場所</label>
+      <input type="text" id="location" placeholder="例：熊本県">
+    </div>
+
+    <div>
+      <label for="author">投稿者名</label>
+      <input type="text" id="author" placeholder="名前を入力してください" required>
+    </div>
+
+    <button type="submit">投稿する</button>
+
+  </form>
+
+  <h2>みんなの投稿</h2>
+
+<div id="postList"></div>
+
+  <script src="post.js"></script>
+
+</body>
+</html>
